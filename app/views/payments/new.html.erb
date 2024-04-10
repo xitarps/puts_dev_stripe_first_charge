@@ -1,0 +1,17 @@
+<%= form_with url: payments_path do |f| %>
+  <label class="amount">
+      <span>Preço: R$<%= @amount %></span>
+  </label>
+
+  <%= f.hidden_field :amount,      value: (@amount*100).to_i %>
+  <%= f.hidden_field :description, value: @description %>
+
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+    data-description="<%= @description %>"
+    data-amount="<%= @amount*100 %>"
+    data-currency="brl"
+    data-locale="pt-BR">
+  </script>
+<% end %>
